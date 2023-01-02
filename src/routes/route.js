@@ -32,7 +32,7 @@ route.post("/addUser",User.addUser)
 
 route.get("/user", User.getUser)
 
-route.patch("/user/update/:userId",User.updateUser)
+route.put("/user/update/:userId",User.updateUser)
 
 
 

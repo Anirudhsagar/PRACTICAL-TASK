@@ -18,6 +18,9 @@ axios.get('https://api.binance.com/api/v1/time')
  })
 
  
+//  mongoose.set('strictQuery', true);
+
+
 
 
 mongoose.connect("mongodb+srv://anirudhsagar:fgAGHtahZoVNyIR3@cluster0.btvli.mongodb.net/Practical",{

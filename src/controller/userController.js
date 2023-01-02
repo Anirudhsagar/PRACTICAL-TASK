@@ -11,9 +11,10 @@ const addUser = async (req,res)=> {
         let data = req.body;
         let { name, city, mobile, media_url } = data;
 
-        if (!data.name) {
+        if (!name) {
             return res.status(300).json("Please enter a name");
         }
+
 
         const alphaName = /^[a-zA-Z]+$/;
 
@@ -29,7 +30,7 @@ const addUser = async (req,res)=> {
 
         let findCity = await cityModel.findOne({ city });
         if(!findCity) {
-            return res.status(300).json("Please Enter a City name");
+            return res.status(300).json("Please Enter a Valid City name");
 
         }
 
@@ -53,10 +54,14 @@ const addUser = async (req,res)=> {
             }
 
         }
-
+    
         let saveData = await userModel.create(data);
-        let hideId = await userModel.findOne({ saveData }).select({ _id:0, creaatedAt :0, _v:0, updatedAt:0})
+      
+        let hideId = await userModel.findOne({ saveData }).select({ _id:0 })
         return res.status(200).json(hideId);
+    
+
+       
 
 
     } catch (error) {
@@ -77,7 +82,7 @@ const getUser = async (req,res) => {
 const updateUser = async (req,res) =>{
     try {
         let data = req.body;
-        let { name, city, mobile, media_url } = data;
+        let {  city } = data;
 
         let id = req.params.userId;
         console.log(id)
@@ -95,16 +100,20 @@ const updateUser = async (req,res) =>{
         }
 
 
-        let user = await userModel.updateOne( { data}, { $set: data});
+        let user = await userModel.findOneAndUpdate( { data}, { $set: data});
 
         if (data.city) {
-            let findCity = await cityModel.findOne( { city});
+            let findCity = await cityModel.findOneAndUpdate( { city});
             if(!findCity) {
                 return res.status(300).json("Please Enter a city name");
             }
         }
-
-        return res.status(200).json({user : data});
+        let save = await userModel.findByIdAndUpdate(
+            { _id: id },
+            { $set: data },
+            { new: true }
+          );
+          return res.status(200).json(save);
 
     } catch (error) {
         return res.status(500).json(error.message);

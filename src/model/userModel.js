@@ -6,7 +6,7 @@ const UserModel = new mongoose.Schema(
     mobile: { type: Number },
     media_url: { type: String },
   },
-  { timestamps: true }
+  // { timestamps: true }
 );
 
 module.exports = mongoose.model("User", UserModel);
