@@ -5,7 +5,7 @@
 
   
 
-  const city = require("../controller/cityController")
+  const {addCity,getCity} = require("../controller/cityController")
 
   const User = require("../controller/userController")
 
@@ -15,9 +15,9 @@
 
 //   ===================== City =================
 
-route.post("/addCity",city.addCity)
+route.post("/addCity", addCity)
 
-route.get("/city",city.getCity)
+route.get("/city", getCity)
 
 //   Step 3: Consume 3rd Party API
 

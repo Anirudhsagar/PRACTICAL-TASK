@@ -57,12 +57,9 @@ const addUser = async (req,res)=> {
     
         let saveData = await userModel.create(data);
       
-        let hideId = await userModel.findOne({ saveData }).select({ _id:0 })
+        let hideId = await userModel.findOne({_id : saveData._id }).select({ _id:0 })
         return res.status(200).json(hideId);
     
-
-       
-
 
     } catch (error) {
         return res.status(500).json(error.message);
